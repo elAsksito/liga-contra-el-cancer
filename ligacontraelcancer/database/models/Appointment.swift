@@ -1,7 +1,8 @@
 import Foundation
+import FirebaseFirestore
 
-struct Appointment : Codable {
-    var id: String = ""
+struct Appointment : Codable, Identifiable {
+    @DocumentID var id: String? = UUID().uuidString
     var consultorio: String = ""
     var especialidadId: String = ""
     var userId: String = ""

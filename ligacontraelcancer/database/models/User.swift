@@ -1,7 +1,8 @@
 import Foundation
+import FirebaseFirestore
 
-struct User: Codable {
-    var id: String = ""
+struct User: Codable, Identifiable {
+    @DocumentID var id: String? = UUID().uuidString
     var name: String = ""
     var surname: String = ""
     var dni: String = ""
