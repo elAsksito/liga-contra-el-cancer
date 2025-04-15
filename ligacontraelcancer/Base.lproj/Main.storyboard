@@ -98,7 +98,7 @@
                                             <constraint firstAttribute="height" constant="50" id="RGk-OP-AdU"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKG-Vq-Acx">
                                         <rect key="frame" x="40" y="489.33333333333337" width="273" height="40"/>
@@ -109,6 +109,9 @@
                                         <buttonConfiguration key="configuration" style="filled" title="Button">
                                             <color key="baseBackgroundColor" red="0.90980386729999996" green="0.20392158630000001" blue="0.1764705926" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="loginTapped:" destination="gHC-5b-2bX" eventType="touchUpInside" id="v9c-cj-UVD"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jdq-nB-nDZ">
                                         <rect key="frame" x="40" y="549.33333333333337" width="273" height="28"/>
@@ -163,6 +166,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="x9O-Fd-1hF"/>
+                    <connections>
+                        <outlet property="emailField" destination="95k-Ld-l5G" id="pbs-eZ-wS1"/>
+                        <outlet property="passwordField" destination="arN-4L-dKA" id="nLR-zT-Td2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ahv-ic-yBz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

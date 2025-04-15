@@ -6,7 +6,7 @@ enum ResultState<T>{
 }
 
 
-enum ErrorState{
+enum ErrorState: Error{
     case networkError(String)
     case invalidCredentials(String)
     case userNotFound(String)
@@ -15,4 +15,18 @@ enum ErrorState{
     case serviceUnavaible(String)
     case unknownError(String)
     case customError(String)
+    
+    var message: String {
+            switch self {
+            case .networkError(let msg),
+                 .invalidCredentials(let msg),
+                 .userNotFound(let msg),
+                 .emailAlreadyInUse(let msg),
+                 .tooManyRequest(let msg),
+                 .serviceUnavaible(let msg),
+                 .unknownError(let msg),
+                 .customError(let msg):
+                return msg
+            }
+        }
 }
