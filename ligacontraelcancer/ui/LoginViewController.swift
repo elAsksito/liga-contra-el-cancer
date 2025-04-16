@@ -6,12 +6,15 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var viewContainer: UIView!
     
     let viewModel = LoginViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        viewContainer.layer.cornerRadius = 16
         
         let eyeButton = UIButton(type: .custom)
             eyeButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)

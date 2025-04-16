@@ -73,7 +73,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_liga_contra_el_cancer_white" translatesAutoresizingMaskIntoConstraints="NO" id="fB9-Qo-URP">
-                                <rect key="frame" x="55" y="324" width="282.33333333333326" height="205.33333333333331"/>
+                                <rect key="frame" x="55.333333333333343" y="323.33333333333331" width="282.33333333333326" height="205.33333333333331"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ure-JK-PKQ"/>
@@ -245,6 +245,7 @@
                         <outlet property="nameField" destination="x6p-RY-dAp" id="CJd-7b-1Jc"/>
                         <outlet property="passwordField" destination="ysa-zu-caT" id="VBT-sO-bb5"/>
                         <outlet property="surnameField" destination="uT4-Vn-6Rt" id="1D2-dA-PDI"/>
+                        <outlet property="viewContainer" destination="2rh-Gk-Ckb" id="Sj5-6h-zL6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KgX-4X-QGc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -348,6 +349,7 @@
                     <connections>
                         <outlet property="emailField" destination="4GY-u2-lOQ" id="QUy-BR-cHE"/>
                         <outlet property="passwordField" destination="EWv-2A-Wxm" id="JqS-ts-lhu"/>
+                        <outlet property="viewContainer" destination="OFo-Er-wTp" id="cl7-SU-08P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gYP-Jk-oTU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

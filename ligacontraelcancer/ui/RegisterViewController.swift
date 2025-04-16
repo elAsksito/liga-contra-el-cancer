@@ -8,12 +8,15 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var dniField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var viewContainer: UIView!
     
     let viewModel = RegisterViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        viewContainer.layer.cornerRadius = 16
         
         let eyeButton = UIButton(type: .custom)
             eyeButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
