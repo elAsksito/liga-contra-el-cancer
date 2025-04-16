@@ -23,7 +23,6 @@ class IntroViewController: UIViewController {
         maskLayer.path = initialCirclePath.cgPath
         whiteBackgroundView.layer.mask = maskLayer
 
-        // Imagen colorida (logo real)
         logoOriginalImageView = UIImageView(image: UIImage(named: "logo_liga_contra_el_cancer"))
         logoOriginalImageView.sizeToFit()
         logoOriginalImageView.center = self.view.center
@@ -31,10 +30,8 @@ class IntroViewController: UIViewController {
         logoOriginalImageView.alpha = 0
         self.view.addSubview(logoOriginalImageView)
 
-        // Animaciones
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 
-            // Desaparece el logo blanco (fade + scale)
             UIView.animate(withDuration: 1.5, delay: 0, options: [.curveEaseInOut], animations: {
                 self.logoWhiteImageView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
                 self.logoWhiteImageView.alpha = 0
