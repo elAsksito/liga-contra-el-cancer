@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  ligacontraelcancer
-//
-//  Created by DAMII on 7/04/25.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

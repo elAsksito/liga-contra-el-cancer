@@ -15,20 +15,19 @@ class RegisterService {
         email: String,
         password: String
     ) async -> ResultState<(String, User)> {
-        do {
-            
-            if !isValidPassword(password){
-                return .failure(.customError("La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número"))
+        return await ResultState.from {
+            if !self.isValidPassword(password) {
+                throw NSError(domain: RegisterErrorDomain.domain, code: RegisterErrorCode.weakPassword.rawValue, userInfo: nil)
             }
-            
-            let dniExiste = try await checkIfDNIExits(dni)
-            if dniExiste{
-                return .failure(.customError("El DNI ya se encuentra registrado"))
+
+            let dniExiste = try await self.checkIfDNIExits(dni)
+            if dniExiste {
+                throw NSError(domain: RegisterErrorDomain.domain, code: RegisterErrorCode.dniAlreadyExists.rawValue, userInfo: nil)
             }
-            
-            let result = try await auth.createUser(withEmail: email, password: password)
+
+            let result = try await self.auth.createUser(withEmail: email, password: password)
             guard let user = result.user as FirebaseAuth.User? else {
-                return .failure(.unknownError("No se pudo obtener el UID del usuario"))
+                throw NSError(domain: AuthErrorDomain, code: AuthErrorCode.userNotFound.rawValue, userInfo: nil)
             }
 
             let lcUser = User(
@@ -44,11 +43,8 @@ class RegisterService {
                 status: "Activo"
             )
 
-            try await saveUserInFirestore(lcUser)
-            return .success(("Usuario registrado exitosamente", lcUser))
-
-        } catch let error as NSError {
-            return .failure(mapAuthError(error))
+            try await self.saveUserInFirestore(lcUser)
+            return ("Usuario registrado exitosamente", lcUser)
         }
     }
 
@@ -65,34 +61,21 @@ class RegisterService {
             "profileImageUrl": user.profileImageUrl,
             "status": user.status
         ]
-
         try await firestore.collection("users").document(user.id ?? "").setData(userDict)
     }
-    
-    private func checkIfDNIExits(_ dni: String) async throws -> Bool{
+
+    private func checkIfDNIExits(_ dni: String) async throws -> Bool {
         let querySnapshot = try await firestore
             .collection("users")
             .whereField("dni", isEqualTo: dni)
             .getDocuments()
         return !querySnapshot.documents.isEmpty
     }
-    
-    private func isValidPassword(_ password: String) -> Bool{
+
+    private func isValidPassword(_ password: String) -> Bool {
         let passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$"
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
         return passwordTest.evaluate(with: password)
     }
-
-    private func mapAuthError(_ error: NSError) -> ErrorState {
-        switch error.code {
-        case AuthErrorCode.emailAlreadyInUse.rawValue:
-            return .emailAlreadyInUse("El correo ya está en uso.")
-        case AuthErrorCode.weakPassword.rawValue:
-            return .customError("La contraseña es muy débil")
-        case AuthErrorCode.networkError.rawValue:
-            return .networkError("Error de red, verifica tu conexión")
-        default:
-            return .unknownError("Ha ocurrido un error inesperado. Intenta nuevamente.")
-        }
-    }
 }
+
