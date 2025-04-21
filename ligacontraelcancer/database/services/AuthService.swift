@@ -16,6 +16,16 @@ class AuthService {
             return .failure(mapAuthError(error))
         }
     }
+    
+    func logOut() -> ResultState<String>{
+        do{
+            try Auth.auth().signOut()
+            return .success("Cierre de sesión exitoso")
+        } catch {
+            return .failure(.unknownError("Error al cerrar sesión"))
+        }
+        
+    }
 
     private func mapAuthError(_ error: NSError) -> ErrorState {
         switch error.code {

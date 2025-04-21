@@ -38,7 +38,7 @@ class RegisterViewController: UIViewController {
         let dni = dniField.text, !dni.isEmpty,
         let email = emailField.text, !email.isEmpty,
         let password = passwordField.text, !password.isEmpty else{
-            showAlert(title: "Campos vacíos", message: "Por favor, completa todos los campos")
+            showErrorAlert(title: "Campos vacíos", message: "Por favor, completa todos los campos")
             return
         }
         

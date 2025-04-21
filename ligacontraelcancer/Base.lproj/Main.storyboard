@@ -435,12 +435,26 @@
         <!--Mi Perfil-->
         <scene sceneID="cVR-mW-5ES">
             <objects>
-                <viewController id="jXe-3p-V6s" sceneMemberID="viewController">
+                <viewController id="jXe-3p-V6s" customClass="ProfileViewController" customModule="ligacontraelcancer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="akl-c9-jhB">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Yx-g1-MgQ">
+                                <rect key="frame" x="132.66666666666666" y="408.66666666666669" width="127.66666666666666" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Cerrar Sesión"/>
+                                <connections>
+                                    <action selector="logOut" destination="jXe-3p-V6s" eventType="touchUpInside" id="DQ1-XH-JJH"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Q86-h6-eqI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Yx-g1-MgQ" firstAttribute="centerX" secondItem="akl-c9-jhB" secondAttribute="centerX" id="BzP-Qw-h5x"/>
+                            <constraint firstItem="6Yx-g1-MgQ" firstAttribute="centerY" secondItem="akl-c9-jhB" secondAttribute="centerY" id="Je7-kH-0iX"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Mi Perfil" id="OOV-al-aGP">
                         <barButtonItem key="rightBarButtonItem" title="Editar" id="Vft-rv-9xs">

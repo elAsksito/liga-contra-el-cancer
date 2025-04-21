@@ -9,6 +9,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var viewContainer: UIView!
     
     let viewModel = LoginViewModel()
+    let alerts = Alerts()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +31,17 @@ class LoginViewController: UIViewController {
         passwordField.rightViewMode = .always
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.emailField.endEditing(true)
+        self.passwordField.endEditing(true)
+    }
     
     @IBAction func loginTapped(_ sender: UIButton){
         guard let email = emailField.text, !email.isEmpty,
         let password = passwordField.text, !password.isEmpty else {
-            showAlert(title: "Campos vacíos", message: "Por favor, completa todos los campos")
+            alerts.showErrorAlert(title: "Campos vacíos",
+                                              message: "Por favor, completa todos los campos",
+                                              viewController: self)
             return
         }
         
@@ -46,24 +53,17 @@ class LoginViewController: UIViewController {
             
             switch result{
             case .success(let user):
-                showAlert(title: "Bienvenido", message: "Sesión iniciada como \(user.email ?? "Usuario")")
+                alerts.showSuccessAlert(title: "Bienvenido",
+                    message: "Sesión iniciada como \(user.email ?? "Usuario")",
+                    viewController: self) {
+                        return self.storyboard?.instantiateViewController(withIdentifier: "initTabBarController") as? UITabBarController
+                    }
             case .failure(let error):
-                showAlert(title: "Error", message: error.message)
+                alerts.showErrorAlert(title: "Error",
+                    message: error.message,
+                    viewController: self)
             }
         }
-    }
-    
-    private func showAlert(title: String, message: String) {
-            let alert = UIAlertController(title: title,
-                                          message: message,
-                                          preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default){ complete in
-            if let initTabBarController = self.storyboard?.instantiateViewController(withIdentifier: "initTabBarController") as? UITabBarController {
-                initTabBarController.modalPresentationStyle = .fullScreen
-                self.present(initTabBarController, animated: true, completion: nil)
-            }
-        })
-            self.present(alert, animated: true)
     }
     
     @objc func togglePasswordVisibility(_ sender: UIButton) {
