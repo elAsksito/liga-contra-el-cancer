@@ -57,7 +57,12 @@ class LoginViewController: UIViewController {
             let alert = UIAlertController(title: title,
                                           message: message,
                                           preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: "OK", style: .default){ complete in
+            if let initTabBarController = self.storyboard?.instantiateViewController(withIdentifier: "initTabBarController") as? UITabBarController {
+                initTabBarController.modalPresentationStyle = .fullScreen
+                self.present(initTabBarController, animated: true, completion: nil)
+            }
+        })
             self.present(alert, animated: true)
     }
     

@@ -51,10 +51,10 @@ class RegisterViewController: UIViewController {
                 password: password)
             
             switch result{
-            case .success(let user):
-                showAlert(title: "Registro exitoso", message: "Usted fue registrado exitosamente")
+            case .success( _):
+                showAlert(title: "Registro exitoso", message: "Por favor inicie sesión para continuar")
             case .failure(let error):
-                showAlert(title: "Error", message: error.message)
+                showErrorAlert(title: "Error", message: error.message)
             }
             
         }
@@ -64,8 +64,21 @@ class RegisterViewController: UIViewController {
             let alert = UIAlertController(title: title,
                                           message: message,
                                           preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: "OK", style: .default){ complete in
+            if let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "loginViewController") as? LoginViewController {
+                loginViewController.modalPresentationStyle = .fullScreen
+                self.present(loginViewController, animated: true, completion: nil)
+            }
+        })
             self.present(alert, animated: true)
+    }
+    
+    private func showErrorAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     @objc func togglePasswordVisibility(_ sender: UIButton) {

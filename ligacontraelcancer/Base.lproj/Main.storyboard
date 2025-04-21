@@ -114,11 +114,11 @@
             <objects>
                 <viewController id="nVp-KU-cb0" customClass="RegisterViewController" customModule="ligacontraelcancer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NoS-Eh-LSE">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2rh-Gk-Ckb">
-                                <rect key="frame" x="20" y="50" width="353" height="781"/>
+                                <rect key="frame" x="20" y="153" width="353" height="654"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="logo_liga_contra_el_cancer" translatesAutoresizingMaskIntoConstraints="NO" id="eR3-u7-DrI">
                                         <rect key="frame" x="90" y="10" width="173" height="120"/>
@@ -252,16 +252,71 @@
             </objects>
             <point key="canvasLocation" x="4985" y="-27"/>
         </scene>
+        <!--Inicio-->
+        <scene sceneID="OcB-5y-hId">
+            <objects>
+                <viewController id="ApP-Z7-QWR" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xbm-gh-bzQ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="jKI-fI-yFf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Inicio" id="sL6-Qv-57P"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BWj-1f-xaM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7269.4656488549617" y="-782.3943661971831"/>
+        </scene>
+        <!--Mis Citas-->
+        <scene sceneID="y2O-vc-QfF">
+            <objects>
+                <viewController id="x1Y-mI-bmt" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oTW-tb-S1y">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Q1b-WR-Ffq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Mis Citas" id="gSM-Ih-NsE">
+                        <barButtonItem key="rightBarButtonItem" title="Añadir" id="yGA-z6-zp3">
+                            <color key="tintColor" systemColor="systemRedColor"/>
+                            <connections>
+                                <segue destination="BiN-5m-pmN" kind="show" id="bVh-oZ-lEd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tWy-4X-BGc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7269.4656488549617" y="703.52112676056345"/>
+        </scene>
+        <!--Agregar Cita-->
+        <scene sceneID="RLD-B6-DFa">
+            <objects>
+                <viewController id="BiN-5m-pmN" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nqM-FX-T3r">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="8ia-iv-uy9"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Agregar Cita" style="editor" id="u4u-EA-oJi"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mnb-Cv-O4k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8370" y="704"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="68X-fz-U04">
             <objects>
-                <viewController id="p1o-bv-WG0" customClass="LoginViewController" customModule="ligacontraelcancer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginViewController" id="p1o-bv-WG0" customClass="LoginViewController" customModule="ligacontraelcancer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8HV-pj-D5j">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OFo-Er-wTp">
-                                <rect key="frame" x="20" y="120" width="353" height="711"/>
+                                <rect key="frame" x="20" y="223" width="353" height="584"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Iniciar Sesión" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlm-4h-4XD">
                                         <rect key="frame" x="40" y="236" width="273" height="24"/>
@@ -356,13 +411,142 @@
             </objects>
             <point key="canvasLocation" x="3985" y="-27"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="eqE-te-NIf">
+            <objects>
+                <tabBarController storyboardIdentifier="initTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="3Uh-aq-fox" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5iT-LY-3zG">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" systemColor="systemRedColor"/>
+                        <color key="selectedImageTintColor" systemColor="systemRedColor"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Paf-Hy-fnX" kind="relationship" relationship="viewControllers" id="9zg-Pu-6i5"/>
+                        <segue destination="c4w-BX-ZzR" kind="relationship" relationship="viewControllers" id="6hn-oj-nNv"/>
+                        <segue destination="ntR-L7-sYd" kind="relationship" relationship="viewControllers" id="fyM-Mg-eJa"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DwJ-W3-NaM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6344" y="-27"/>
+        </scene>
+        <!--Mi Perfil-->
+        <scene sceneID="cVR-mW-5ES">
+            <objects>
+                <viewController id="jXe-3p-V6s" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="akl-c9-jhB">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Q86-h6-eqI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Mi Perfil" id="OOV-al-aGP">
+                        <barButtonItem key="rightBarButtonItem" title="Editar" id="Vft-rv-9xs">
+                            <color key="tintColor" systemColor="systemRedColor"/>
+                            <connections>
+                                <segue destination="cW6-1a-eYu" kind="show" id="8sF-NG-iLI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XL0-ik-My6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8428.2442748091598" y="-27.464788732394368"/>
+        </scene>
+        <!--Editar Perfil-->
+        <scene sceneID="9Z2-v3-aP6">
+            <objects>
+                <viewController id="cW6-1a-eYu" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ntk-Rm-52y">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="7hC-jr-Q64"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Editar Perfil" style="editor" id="kML-Kl-Iid"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DuZ-z8-gwX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9349" y="-27"/>
+        </scene>
+        <!--Inicio-->
+        <scene sceneID="oyg-FV-rpY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Paf-Hy-fnX" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Inicio" image="homekit" catalog="system" id="ea9-GD-XAs">
+                        <color key="badgeColor" systemColor="systemRedColor"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="k8u-Hq-Nu4">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" systemColor="systemRedColor"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ApP-Z7-QWR" kind="relationship" relationship="rootViewController" id="fO6-SD-1F8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JSw-vA-EPf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6342.7480916030536" y="-782.3943661971831"/>
+        </scene>
+        <!--Perfil-->
+        <scene sceneID="UPt-Rp-LyL">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ntR-L7-sYd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Perfil" image="person.crop.circle" catalog="system" id="HKM-cJ-JqU">
+                        <color key="badgeColor" systemColor="systemRedColor"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jpu-WZ-iMy">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" systemColor="systemRedColor"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jXe-3p-V6s" kind="relationship" relationship="rootViewController" id="V5Q-gz-LQJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ANt-i0-qlZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7501.5267175572517" y="-27.464788732394368"/>
+        </scene>
+        <!--Citas-->
+        <scene sceneID="b5B-XV-Pte">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c4w-BX-ZzR" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Citas" image="macbook" catalog="system" id="FQq-fg-nvF">
+                        <color key="badgeColor" systemColor="systemRedColor"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pf5-Tz-sCf">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" systemColor="systemRedColor"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="x1Y-mI-bmt" kind="relationship" relationship="rootViewController" id="Olc-d1-l4X"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mbe-Qc-xby" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6342.7480916030536" y="703.52112676056345"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ARQ-3o-4oQ"/>
+        <segue reference="2rf-x3-ukT"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="homekit" catalog="system" width="128" height="104"/>
         <image name="logo_liga_contra_el_cancer" width="282.33334350585938" height="205.33332824707031"/>
         <image name="logo_liga_contra_el_cancer_white" width="282.33334350585938" height="205.33332824707031"/>
+        <image name="macbook" catalog="system" width="128" height="71"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
