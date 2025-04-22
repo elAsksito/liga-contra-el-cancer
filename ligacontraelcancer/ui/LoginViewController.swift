@@ -1,5 +1,5 @@
 import UIKit
-import FirebaseAuth
+import Combine
 
 class LoginViewController: UIViewController {
     
@@ -10,10 +10,15 @@ class LoginViewController: UIViewController {
     
     let viewModel = LoginViewModel()
     let alerts = Alerts()
+    let loadingOverlay = LoadingOverlay()
+    
+    var cancellables = Set<AnyCancellable>()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.enableKeyboardAvoiding()
+        bindViewModel()
         navigationController?.setNavigationBarHidden(true, animated: false)
         
         viewContainer.layer.cornerRadius = 16
@@ -26,31 +31,41 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginTapped(_ sender: UIButton){
         guard let email = emailField.text, !email.isEmpty,
-        let password = passwordField.text, !password.isEmpty else {
+              let password = passwordField.text, !password.isEmpty else {
             alerts.showErrorAlert(title: "Campos vacíos",
-                                              message: "Por favor, completa todos los campos",
-                                              viewController: self)
+                                  message: "Por favor, complete todos los campos",
+                                  viewController: self)
             return
         }
         
-        Task{
-            let result = await viewModel.login(
-                email: emailField.text ?? "",
-                password: passwordField.text ?? ""
-            )
-            
-            switch result{
-            case .success(let user):
-                alerts.showSuccessAlert(title: "Bienvenido",
-                    message: "Sesión iniciada como \(user.email ?? "Usuario")",
-                    viewController: self) {
-                        return self.storyboard?.instantiateViewController(withIdentifier: "initTabBarController") as? UITabBarController
-                    }
-            case .failure(let error):
-                alerts.showErrorAlert(title: "Error",
-                    message: error.message,
-                    viewController: self)
+        viewModel.login(email: email, password: password)
+    }
+    
+    private func bindViewModel(){
+        viewModel.$loginState
+            .receive(on: RunLoop.main)
+            .sink{[weak self] state in
+                guard let self = self else { return }
+                
+                switch state {
+                case .idle:
+                    self.loadingOverlay.hide()
+                case .loading:
+                    loadingOverlay.show(in: self.view)
+                case .success(let user):
+                    self.loadingOverlay.hide()
+                    alerts.showSuccessAlert(title: "Bienvenido",
+                                            message: "Sesión iniciada como \(user.email ?? "Usuario")",
+                                            viewController: self) {
+                                return self.storyboard?.instantiateViewController(withIdentifier: "initTabBarController") as? UITabBarController
+                            }
+                case .failure(let error):
+                    self.loadingOverlay.hide()
+                    alerts.showErrorAlert(title: "Error",
+                                          message: error.message,
+                                          viewController: self)
+                }
             }
-        }
+            .store(in: &cancellables)
     }
 }

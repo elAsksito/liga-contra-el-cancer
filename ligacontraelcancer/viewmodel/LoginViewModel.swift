@@ -1,11 +1,18 @@
+import Combine
 import Foundation
 import FirebaseAuth
 
 @MainActor
-class LoginViewModel{
-    func login(email: String,  password: String) async -> ResultState<FirebaseAuth.User> {
-        return await AuthService.shared.loginUser(email: email, password: password)
+class LoginViewModel : ObservableObject {
+    
+    @Published var loginState: ResultState<FirebaseAuth.User> = .idle
+    
+    func login(email: String,  password: String) {
+        self.loginState = .loading
+        
+        Task{
+            let result = await AuthService.shared.loginUser(email: email, password: password)
+            self.loginState = result
+        }
     }
-    
-    
 }

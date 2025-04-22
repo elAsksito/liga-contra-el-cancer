@@ -1,42 +1,48 @@
-//
-//  ProfileViewController.swift
-//  ligacontraelcancer
-//
-//  Created by DAMII on 21/04/25.
-//
-
 import UIKit
+import Combine
 
 class ProfileViewController: UIViewController {
     
-    let userViewModel = UserViewModel()
+    let viewModel = UserViewModel()
+    let alerts = Alerts()
+    let loadingOverlay = LoadingOverlay()
+    
+    var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindViewModel()
     }
     
     @IBAction func logOut(){
-        let result = userViewModel.logout()
-        
-        switch result {
-        case .success(_):
-            showAlert(title: "Éxito", message: "Cierre de sesión exitoso")
-        case .failure(let error):
-            showAlert(title: "Error", message: error.message)
-            
-        }
+        viewModel.logout()
     }
     
-    private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title,
-                                      message: message,
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default){ complete in
-            if let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "loginViewController") as? LoginViewController {
-                loginViewController.modalPresentationStyle = .fullScreen
-                self.present(loginViewController, animated: true, completion: nil)
+    private func bindViewModel(){
+        viewModel.$userState
+            .receive(on: RunLoop.main)
+            .sink{[weak self] state in
+                guard let self = self else {return}
+                
+                switch state {
+                case .idle:
+                    self.loadingOverlay.hide()
+                case .loading:
+                    loadingOverlay.show(in: self.view)
+                case .success(_):
+                    self.loadingOverlay.hide()
+                    alerts.showSuccessAlert(title: "Éxito", message: "Cierre de sesión exitoso", viewController: self){
+                        return
+                            self.storyboard?.instantiateViewController(withIdentifier: "loginViewController") as? LoginViewController
+                    }
+                case .failure(let error):
+                    self.loadingOverlay.hide()
+                    alerts.showErrorAlert(title: "Error",
+                                          message: error.message,
+                                          viewController: self)
+                }
             }
-        })
-        self.present(alert, animated: true)
+            .store(in: &cancellables)
     }
 }
+

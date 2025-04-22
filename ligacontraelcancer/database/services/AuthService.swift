@@ -13,7 +13,7 @@ class AuthService {
             }
             return .success(user)
         } catch let error as NSError {
-            return .failure(mapAuthError(error))
+            return .failure(ErrorMapper.map(error))
         }
     }
     
@@ -23,25 +23,6 @@ class AuthService {
             return .success("Cierre de sesión exitoso")
         } catch {
             return .failure(.unknownError("Error al cerrar sesión"))
-        }
-        
-    }
-
-    private func mapAuthError(_ error: NSError) -> ErrorState {
-        switch error.code {
-        case AuthErrorCode.userNotFound.rawValue:
-            return .userNotFound("Usuario no encontrado")
-        case AuthErrorCode.invalidEmail.rawValue,
-             AuthErrorCode.wrongPassword.rawValue:
-            return .invalidCredentials("Correo o contraseña incorrectos")
-        case AuthErrorCode.networkError.rawValue:
-            return .networkError("Error de red, verifica tu conexión")
-        case AuthErrorCode.userDisabled.rawValue:
-            return .customError("La cuenta ha sido deshabilitada")
-        case AuthErrorCode.tooManyRequests.rawValue:
-            return .customError("Demasiados intentos, intenta más tarde")
-        default:
-            return .unknownError("Ha ocurrido un error inesperado. Intenta nuevamente.")
         }
     }
 }

@@ -48,7 +48,7 @@ class RegisterService {
             return .success(("Usuario registrado exitosamente", lcUser))
 
         } catch let error as NSError {
-            return .failure(mapAuthError(error))
+            return .failure(ErrorMapper.map(error))
         }
     }
 
@@ -81,18 +81,5 @@ class RegisterService {
         let passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$"
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
         return passwordTest.evaluate(with: password)
-    }
-
-    private func mapAuthError(_ error: NSError) -> ErrorState {
-        switch error.code {
-        case AuthErrorCode.emailAlreadyInUse.rawValue:
-            return .emailAlreadyInUse("El correo ya está en uso.")
-        case AuthErrorCode.weakPassword.rawValue:
-            return .customError("La contraseña es muy débil")
-        case AuthErrorCode.networkError.rawValue:
-            return .networkError("Error de red, verifica tu conexión")
-        default:
-            return .unknownError("Ha ocurrido un error inesperado. Intenta nuevamente.")
-        }
     }
 }
