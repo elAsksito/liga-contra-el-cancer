@@ -11,25 +11,19 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var viewContainer: UIView!
     
     let viewModel = RegisterViewModel()
+    let alerts = Alerts()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.enableKeyboardAvoiding()
         navigationController?.setNavigationBarHidden(true, animated: false)
         
         viewContainer.layer.cornerRadius = 16
-        
-        let eyeButton = UIButton(type: .custom)
-            eyeButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
-            eyeButton.tintColor = .gray
-            eyeButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-            eyeButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
-        
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 24))
-            eyeButton.center = CGPoint(x: paddingView.bounds.midX, y: paddingView.bounds.midY)
-            paddingView.addSubview(eyeButton)
-        
-        passwordField.rightView = paddingView
-        passwordField.rightViewMode = .always
+        passwordField.enablePasswordToggle()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     @IBAction func registerTapped(_ sender: UIButton){
@@ -38,7 +32,9 @@ class RegisterViewController: UIViewController {
         let dni = dniField.text, !dni.isEmpty,
         let email = emailField.text, !email.isEmpty,
         let password = passwordField.text, !password.isEmpty else{
-            showErrorAlert(title: "Campos vacíos", message: "Por favor, completa todos los campos")
+            alerts.showErrorAlert(title: "Campos vacíos",
+                                  message: "Por favor, completa todos los campos",
+                                  viewController: self)
             return
         }
         
@@ -49,41 +45,19 @@ class RegisterViewController: UIViewController {
                 dni: dni,
                 email: email,
                 password: password)
-            
             switch result{
             case .success( _):
-                showAlert(title: "Registro exitoso", message: "Por favor inicie sesión para continuar")
+                alerts.showSuccessAlert(title: "Registro exitoso",
+                    message: "Por favor inicie sesión para continuar",
+                    viewController: self) {
+                    return self.storyboard?.instantiateViewController(withIdentifier: "loginViewController") as? LoginViewController
+                    }
             case .failure(let error):
-                showErrorAlert(title: "Error", message: error.message)
+                alerts.showErrorAlert(title: "Error",
+                    message: error.message,
+                    viewController: self)
             }
             
         }
-    }
-    
-    private func showAlert(title: String, message: String) {
-            let alert = UIAlertController(title: title,
-                                          message: message,
-                                          preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default){ complete in
-            if let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "loginViewController") as? LoginViewController {
-                loginViewController.modalPresentationStyle = .fullScreen
-                self.present(loginViewController, animated: true, completion: nil)
-            }
-        })
-            self.present(alert, animated: true)
-    }
-    
-    private func showErrorAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title,
-                                      message: message,
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
-    
-    @objc func togglePasswordVisibility(_ sender: UIButton) {
-        passwordField.isSecureTextEntry.toggle()
-        let imageName = passwordField.isSecureTextEntry ? "eye.fill" : "eye.slash.fill"
-        sender.setImage(UIImage(systemName: imageName), for: .normal)
     }
 }

@@ -13,27 +13,15 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.enableKeyboardAvoiding()
         navigationController?.setNavigationBarHidden(true, animated: false)
         
         viewContainer.layer.cornerRadius = 16
-        
-        let eyeButton = UIButton(type: .custom)
-            eyeButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
-            eyeButton.tintColor = .gray
-            eyeButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-            eyeButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
-        
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 24))
-            eyeButton.center = CGPoint(x: paddingView.bounds.midX, y: paddingView.bounds.midY)
-            paddingView.addSubview(eyeButton)
-        
-        passwordField.rightView = paddingView
-        passwordField.rightViewMode = .always
+        passwordField.enablePasswordToggle()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.emailField.endEditing(true)
-        self.passwordField.endEditing(true)
+        self.view.endEditing(true)
     }
     
     @IBAction func loginTapped(_ sender: UIButton){
@@ -64,11 +52,5 @@ class LoginViewController: UIViewController {
                     viewController: self)
             }
         }
-    }
-    
-    @objc func togglePasswordVisibility(_ sender: UIButton) {
-        passwordField.isSecureTextEntry.toggle()
-        let imageName = passwordField.isSecureTextEntry ? "eye.fill" : "eye.slash.fill"
-        sender.setImage(UIImage(systemName: imageName), for: .normal)
     }
 }
