@@ -7,6 +7,7 @@ enum ErrorState: Error {
     case emailAlreadyInUse(String)
     case tooManyRequest(String)
     case serviceUnavaible(String)
+    case unauthorized(String)
     case unknownError(String)
     case customError(String)
 
@@ -18,6 +19,7 @@ enum ErrorState: Error {
              .emailAlreadyInUse(let msg),
              .tooManyRequest(let msg),
              .serviceUnavaible(let msg),
+             .unauthorized(let msg),
              .unknownError(let msg),
              .customError(let msg):
             return msg
