@@ -1,9 +1,3 @@
-//
-//  NewsService.swift
-//  ligacontraelcancer
-//
-//  Created by Allan Sagastegui on 23/04/25.
-//
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestore
@@ -11,6 +5,9 @@ import FirebaseStorage
 import UIKit
 
 class NewsService {
+    
+    static let shared = NewsService()
+    private init () {}
     
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
