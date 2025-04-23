@@ -11,10 +11,8 @@ class SpecialtyService {
     
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
-
-    private var collection: CollectionReference {
-        db.collection("specialties")
-    }
+    
+    private let collection = Firestore.firestore().collection("specialties")
     
     func saveSpecialty(_ specialty: Specialty, image: UIImage?) async -> ResultState<String> {
         do {

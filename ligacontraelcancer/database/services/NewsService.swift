@@ -11,9 +11,7 @@ class NewsService {
     
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
-    private var newsCollection: CollectionReference {
-        return db.collection("news")
-    }
+    private let newsCollection = Firestore.firestore().collection("news")
     
     func saveNews(_ news: News, image: UIImage?) async -> ResultState<String> {
         do {
