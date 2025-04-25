@@ -16,7 +16,7 @@ extension UIViewController {
         let fieldMaxY = fieldFrame.maxY
 
         if fieldMaxY > keyboardMinY {
-            let moveDistance = fieldMaxY - keyboardMinY + 10
+            let moveDistance = fieldMaxY - keyboardMinY + 30
 
             UIView.animate(withDuration: 0.3) {
                 self.view.frame.origin.y = -moveDistance

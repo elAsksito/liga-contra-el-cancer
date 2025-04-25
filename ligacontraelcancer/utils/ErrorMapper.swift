@@ -57,7 +57,6 @@ struct ErrorMapper {
         guard let code = FirestoreErrorCode.Code(rawValue: error.code) else {
             return .unknownError("Error desconocido en la base de datos: \(error.localizedDescription)")
         }
-
         switch code {
         case .cancelled:
             return .customError("La operación fue cancelada por el cliente.")
@@ -102,7 +101,6 @@ struct ErrorMapper {
         guard let code = StorageErrorCode(rawValue: error.code) else {
             return .unknownError("Error desconocido al subir/descargar archivo.")
         }
-
         switch code {
         case .objectNotFound:
             return .customError("Archivo no encontrado en el servidor.")

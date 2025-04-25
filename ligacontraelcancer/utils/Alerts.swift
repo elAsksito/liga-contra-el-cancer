@@ -2,7 +2,6 @@ import UIKit
 
 class Alerts {
     
-    // MARK: - Success Alert
     func showSuccessAlert(title: String,
                           message: String,
                           viewController: UIViewController,
