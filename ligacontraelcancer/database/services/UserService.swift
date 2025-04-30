@@ -138,6 +138,18 @@ class UserService {
         }
     }
     
+    func getUserById(userId: String) async -> ResultState<User> {
+        do {
+            let doc = try await db.collection("users").document(userId).getDocument()
+            guard let user = try? doc.data(as: User.self) else {
+                return .failure(.userNotFound("Usuario no encontrado en Firestore"))
+            }
+            return .success(user)
+        } catch let error as NSError {
+            return .failure(ErrorMapper.map(error))
+        }
+    }
+    
     private func saveUserInFirestore(_ user: User) async throws {
         let encodedUser = try Firestore.Encoder().encode(user)
         try await db.collection("users").document(user.id ?? UUID().uuidString).setData(encodedUser)

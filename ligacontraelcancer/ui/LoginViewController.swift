@@ -54,6 +54,7 @@ class LoginViewController: UIViewController {
                     loadingOverlay.show(in: self.view)
                 case .success(let user):
                     self.loadingOverlay.hide()
+                    UserDefaults.standard.set(user.uid, forKey: "userId")
                     alerts.showSuccessAlert(title: "Bienvenido",
                                             message: "Sesión iniciada como \(user.email ?? "Usuario")",
                                             viewController: self) {
