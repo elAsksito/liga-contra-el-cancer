@@ -9,6 +9,7 @@ class UserViewModel{
     @Published var userState: ResultState<String> = .idle
     @Published var userById: ResultState<User> = .idle
     @Published var updateState: ResultState<String> = .idle
+    @Published var getDoctorsState: ResultState<[User]> = .idle
     
     func logout() {
         self.userState = .loading
@@ -33,5 +34,14 @@ class UserViewModel{
                 let result = await UserService.shared.updateUserProfile(userId: userId, user: updatedUser, image: image)
                 self.updateState = result
             }
+    }
+    
+    func getAllDoctors(){
+        self.getDoctorsState = .loading
+        
+        Task{
+            let result = await UserService.shared.getDoctors()
+            self.getDoctorsState = result
         }
+    }
 }

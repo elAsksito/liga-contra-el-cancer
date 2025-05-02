@@ -1,10 +1,3 @@
-//
-//  ItemCollectionViewCell.swift
-//  ligacontraelcancer
-//
-//  Created by DAMII on 23/04/25.
-//
-
 import UIKit
 
 class ItemCollectionViewCell: UICollectionViewCell {

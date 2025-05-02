@@ -1,10 +1,3 @@
-//
-//  EspecialidadDetailViewController.swift
-//  ligacontraelcancer
-//
-//  Created by DAMII on 30/04/25.
-//
-
 import UIKit
 
 class EspecialidadDetailViewController: UIViewController {
@@ -14,14 +7,14 @@ class EspecialidadDetailViewController: UIViewController {
     @IBOutlet weak var imageEspecialidad: UIImageView!
     @IBOutlet weak var nameEspecialidad: UILabel!
     
-    var especialidad: Especialidad?
+    var especialidad: Specialty?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         if let especialidad = especialidad {
-            nameEspecialidad.text = especialidad.title
-            imageEspecialidad.image = UIImage(named: especialidad.portadaE)
+            nameEspecialidad.text = especialidad.nombre
+            imageEspecialidad.image = UIImage(named: especialidad.image)
         }
     }
     

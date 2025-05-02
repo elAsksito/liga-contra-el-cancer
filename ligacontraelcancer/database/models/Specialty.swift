@@ -7,3 +7,4 @@ struct Specialty: Codable, Identifiable {
     var description: String = ""
     var image: String = ""
 }
+ 

@@ -125,7 +125,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                     break
                 case .loading:
                     loadingOverlay.show(in: self.view)
-                case .success(let msg):
+                case .success(_):
                     loadingOverlay.hide()
                     alerts.showSuccessAlert(title: "Éxito",
                                             message: "Usted actualizó sus datos satisfactoriamente",
