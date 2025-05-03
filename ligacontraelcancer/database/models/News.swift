@@ -2,7 +2,7 @@ import Foundation
 import FirebaseFirestore
 
 struct News: Codable, Identifiable {
-    @DocumentID var id: String? = UUID().uuidString
+    @DocumentID var id: String?
     var title: String = ""
     var description: String = ""
     var image: String = ""

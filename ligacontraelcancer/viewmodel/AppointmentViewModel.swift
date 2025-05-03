@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import FirebaseFirestore
 
 @MainActor
 class AppointmentViewModel: ObservableObject {
@@ -10,6 +11,7 @@ class AppointmentViewModel: ObservableObject {
     @Published var doctorAppointmentsState: ResultState<[AppointmentDetail]> = .idle
     @Published var updateState: ResultState<String> = .idle
     @Published var deleteState: ResultState<String> = .idle
+    private var listener: ListenerRegistration?
     
     func createAppointment(_ appointment: Appointment) {
         self.appointmentState = .loading
@@ -26,15 +28,6 @@ class AppointmentViewModel: ObservableObject {
         Task {
             let result = await AppointmentService.shared.getAllAppointmentsWithDetails()
             self.allAppointmentsState = result
-        }
-    }
-    
-    func fetchAppointmentsByUserId(_ userId: String) {
-        self.userAppointmentsState = .loading
-        
-        Task {
-            let result = await AppointmentService.shared.getAppointmentsByUserId(userId)
-            self.userAppointmentsState = result
         }
     }
     
@@ -63,5 +56,20 @@ class AppointmentViewModel: ObservableObject {
             let result = await AppointmentService.shared.deleteAppointment(appointmentId: appointmentId)
             self.deleteState = result
         }
+    }
+    
+    func observeAppointmentsByUserId(_ userId: String) {
+        self.userAppointmentsState = .loading
+
+        AppointmentService.shared.fetchAppointmentsByUserId(userId) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.userAppointmentsState = result
+            }
+        }
+    }
+    
+    func removeListener() {
+        listener?.remove()
+        listener = nil
     }
 }

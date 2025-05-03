@@ -14,16 +14,16 @@ class CitaDetalleViewController: UIViewController {
     
     @IBOutlet weak var horaLabel: UILabel!
     
-    var cita: Appointment?
+    var cita: AppointmentDetail?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let cita = cita {
-            consultorioLabel.text = cita.consultorio
-            pacienteLabel.text = cita.userId
-            especialidadLabel.text = cita.especialidadId
-            fechaLabel.text = cita.fecha
-            horaLabel.text = cita.hora
+        if let detalle = cita {
+            consultorioLabel.text = detalle.appointment.consultorio
+            pacienteLabel.text = detalle.appointment.userId
+            especialidadLabel.text = detalle.appointment.especialidadId
+            fechaLabel.text = detalle.appointment.fecha
+            horaLabel.text = detalle.appointment.hora
         }
         
     }
