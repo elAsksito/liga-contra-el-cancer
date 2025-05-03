@@ -24,11 +24,17 @@ class NewCitaViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.enableKeyboardAvoiding()
         bindViewModel()
         cargarEspecialidades()
         configurarPickerEspecialidad()
         configurarPickerHora()
         configurarPickerFecha()
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 
     func verificarHorario(horaSeleccionada: String) -> Bool {
