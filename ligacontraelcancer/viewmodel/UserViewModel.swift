@@ -10,6 +10,7 @@ class UserViewModel{
     @Published var userById: ResultState<User> = .idle
     @Published var updateState: ResultState<String> = .idle
     @Published var getDoctorsState: ResultState<[User]> = .idle
+    @Published var doctorBySpecialtyState: ResultState<User> = .idle
     
     func logout() {
         self.userState = .loading
@@ -42,6 +43,14 @@ class UserViewModel{
         Task{
             let result = await UserService.shared.getDoctors()
             self.getDoctorsState = result
+        }
+    }
+    
+    func getFirstDoctorBySpecialty(specialty: String) {
+        self.doctorBySpecialtyState = .loading
+        Task {
+            let result = await UserService.shared.getFirstDoctorBySpecialty(specialty: specialty)
+            self.doctorBySpecialtyState = result
         }
     }
 }
