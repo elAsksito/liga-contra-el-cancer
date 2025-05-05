@@ -66,6 +66,7 @@ class RegisterViewController: UIViewController {
                     alerts.showErrorAlert(title: "Error",
                         message: error.message,
                         viewController: self)
+                    self.loadingOverlay.hide()
                 }
             }
             .store(in: &cancellables)

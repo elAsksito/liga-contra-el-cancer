@@ -41,7 +41,14 @@ extension NewCitaViewController {
                             self.loadingOverlay.show(in: self.view)
                         case .success(_):
                             self.loadingOverlay.hide()
-                            self.alerts.showSuccessAlert(title: "Cita creada", message: "Tu cita ha sido creada correctamente.", viewController: self)
+                            self.alerts.showSuccessAlert(title: "Cita creada", message: "Tu cita ha sido creada correctamente.", viewController: self) {
+                                guard let tabBarController = self.storyboard?.instantiateViewController(withIdentifier: "initTabBarController") as? UITabBarController else {
+                                    return nil
+                                }
+                                
+                                tabBarController.selectedIndex = 1
+                                return tabBarController
+                            }
                         case .failure(let error):
                             self.loadingOverlay.hide()
                             self.alerts.showErrorAlert(title: "Error", message: error.message, viewController: self)

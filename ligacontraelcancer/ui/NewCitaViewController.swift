@@ -3,13 +3,11 @@ import Combine
 
 class NewCitaViewController: UIViewController {
     
-    
     @IBOutlet weak var especialidadTextField: UITextField!
     @IBOutlet weak var fechaTextField: UITextField!
     @IBOutlet weak var horaTextField: UITextField!
     
     var selectedSpecialtyForAppointment: Specialty?
-    
     
     var especialidades: [Specialty] = []
     let specialtyViewModel = SpecialtyViewModel()
@@ -24,7 +22,6 @@ class NewCitaViewController: UIViewController {
     
     var doctorId: String? = nil
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.enableKeyboardAvoiding()
@@ -55,59 +52,72 @@ class NewCitaViewController: UIViewController {
         return false
     }
     
-    
     @IBAction func registerAppointmentClicked(_ sender: Any) {
-        
         guard let especialidad = selectedSpecialtyForAppointment,
               let fecha = fechaTextField.text, !fecha.isEmpty,
               let hora = horaTextField.text, !hora.isEmpty else {
-                    alerts.showErrorAlert(title: "Error", message: "Por favor, complete todos los campos.", viewController: self)
-                    return
-              }
-        
-        var especialidadId = especialidad.id ?? ""
-        
-        if(doctorId == nil){
-            doctorViewModel.getFirstDoctorBySpecialty(specialty: especialidadId)
+            alerts.showErrorAlert(title: "Error", message: "Por favor, complete todos los campos.", viewController: self)
+            return
         }
-        
-                
-        let newAppointment = Appointment(
-            consultorio: "Consultorio 1",
-            especialidadId: especialidadId,
-            userId: userId,
-            doctorId: doctorId!,
-            estado: "Pendiente",
-            fecha: fecha,
-            hora: hora,
-            observaciones: "",
-            receta: ""
-        )
-                
-        appointmentViewModel.createAppointment(newAppointment)
+
+        if let doctorId = doctorId {
+            let newAppointment = Appointment(
+                consultorio: "Consultorio 1",
+                especialidadId: especialidad.id ?? "",
+                userId: self.userId,
+                doctorId: doctorId,
+                estado: "Pendiente",
+                fecha: fecha,
+                hora: hora,
+                observaciones: "",
+                receta: ""
+            )
+            appointmentViewModel.createAppointment(newAppointment)
+        } else {
+            doctorViewModel.getFirstDoctorBySpecialty(specialty: especialidad.id ?? "")
+        }
     }
     
     private func bindDoctorViewModel(){
         doctorViewModel.$doctorBySpecialtyState
             .receive(on: RunLoop.main)
-            .sink{[weak self] state in
-                guard let self = self else {return}
-                switch state{
+            .sink { [weak self] state in
+                guard let self = self else { return }
+                switch state {
                 case .idle:
                     self.loadingOverlay.hide()
                 case .loading:
-                    loadingOverlay.show(in: self.view)
+                    self.loadingOverlay.show(in: self.view)
                 case .success(let doctor):
                     self.loadingOverlay.hide()
-                    doctorId = doctor.id
+                    self.doctorId = doctor.id
+
+                    if let especialidad = self.selectedSpecialtyForAppointment,
+                       let fecha = self.fechaTextField.text, !fecha.isEmpty,
+                       let hora = self.horaTextField.text, !hora.isEmpty,
+                       let doctorId = doctor.id {
+
+                        let newAppointment = Appointment(
+                            consultorio: "Consultorio 1",
+                            especialidadId: especialidad.id ?? "",
+                            userId: self.userId,
+                            doctorId: doctorId,
+                            estado: "Pendiente",
+                            fecha: fecha,
+                            hora: hora,
+                            observaciones: "",
+                            receta: ""
+                        )
+
+                        self.appointmentViewModel.createAppointment(newAppointment)
+                    }
                 case .failure(let error):
                     self.loadingOverlay.hide()
-                    alerts.showErrorAlert(title: "Error",
-                                          message: error.message,
-                                          viewController: self)
+                    self.alerts.showErrorAlert(title: "Error",
+                                               message: error.message,
+                                               viewController: self)
                 }
             }
             .store(in: &cancellables)
     }
-    
 }
