@@ -43,6 +43,7 @@ extension NewCitaViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.addTarget(self, action: #selector(horaSeleccionada(_:)), for: .valueChanged)
+        timePicker.minuteInterval = 30
         horaTextField.inputView = timePicker
         horaTextField.tintColor = .clear
         horaTextField.placeholder = "Seleccione la fecha"
@@ -57,6 +58,16 @@ extension NewCitaViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     @objc func horaSeleccionada(_ sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
-        horaTextField.text = formatter.string(from: sender.date)
+        let horaSeleccionada = sender.date
+        
+        if validarHora(hora: horaSeleccionada) {
+            horaTextField.text = formatter.string(from: horaSeleccionada)
+        } else {
+            alerts.showErrorAlert(title: "Hora fuera de rango", message: "La hora seleccionada debe estar entre las 10:00 AM y las 6:00 PM.", viewController: self)
+            
+            let horaValida = Calendar.current.date(bySettingHour: 10, minute: 0, second: 0, of: Date())!
+            horaTextField.text = formatter.string(from: horaValida)
+        }
     }
+
 }

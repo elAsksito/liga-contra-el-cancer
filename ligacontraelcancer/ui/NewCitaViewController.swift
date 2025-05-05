@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-class NewCitaViewController: UIViewController {
+class NewCitaViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var especialidadTextField: UITextField!
     @IBOutlet weak var fechaTextField: UITextField!
@@ -25,28 +25,30 @@ class NewCitaViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.enableKeyboardAvoiding()
+        especialidadTextField.delegate = self
+        fechaTextField.delegate = self
+        horaTextField.delegate = self
+        
         bindViewModel()
         bindDoctorViewModel()
         cargarEspecialidades()
         configurarPickerEspecialidad()
         configurarPickerHora()
         configurarPickerFecha()
+        
+
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
 
-    func verificarHorario(horaSeleccionada: String) -> Bool {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        guard let hora = formatter.date(from: horaSeleccionada) else { return false }
-
+    func validarHora(hora: Date) -> Bool {
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: hora)
-
-        return !(hour < 10 || hour >= 18)
+        return hour >= 10 && hour < 18
     }
+
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return false
