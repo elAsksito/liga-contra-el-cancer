@@ -9,6 +9,7 @@ Una app iOS para gestión de citas médicas en la fundación “Liga Contra el C
 - [Tecnologías y requisitos](#tecnologías-y-requisitos)
 - [Instalación](#instalación)
 - [Estructura del proyecto](#estructura-del-proyecto)
+- [Documentación](#documentación)
 - [Contactar](#contactar)
 
 ---
@@ -81,6 +82,12 @@ liga-contra-el-cancer/
 │   ├── IntroViewController.swift    # Pantalla de introducción
 └── README.md                        # Este archivo
 ```
+
+## Documentación
+
+Puedes revisar la documentación completa del proyecto en Notion:
+
+🔗 [Ver documentación en Notion](https://www.notion.so/1d98e97e466080dabd28e7f89e0db74d?v=1d98e97e4660809daccb000c357e8071&pvs=4)
 
 ## Contactar
 
