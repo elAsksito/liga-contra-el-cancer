@@ -27,7 +27,7 @@ extension NewCitaViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         especialidadTextField.placeholder = "Seleccione la especialidad"
     }
 
-    func configurarPickerHora(){
+    func configurarPickerFecha(){
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.minimumDate = Date()
@@ -37,8 +37,8 @@ extension NewCitaViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         fechaTextField.tintColor = .clear
         fechaTextField.placeholder = "Horario de Cita 10 AM - 6PM"
     }
-    
-    func configurarPickerFecha(){
+
+    func configurarPickerHora(){
         let timePicker = UIDatePicker()
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .wheels
